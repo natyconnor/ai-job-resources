@@ -1,5 +1,5 @@
 {
-  "name": "radiant-ring",
+  "name": "ai-job-enhace-resources",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -10,5 +10,10 @@
   },
   "dependencies": {
     "astro": "^5.17.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@tailwindcss/vite": "^4.2.1",
+    "tailwindcss": "^4.2.1"
   }
 }

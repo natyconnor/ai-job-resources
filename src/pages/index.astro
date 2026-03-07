@@ -1,5 +1,6 @@
 ---
-
+import { sections, site } from "../data/site";
+import "../styles/global.css";
 ---
 
 <html lang="en">
@@ -7,11 +8,242 @@
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<meta name="description" content={site.description} />
+		<title>{site.title}</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<div class="page-shell">
+			<header class="hero">
+				<p class="eyebrow">{site.eyebrow}</p>
+				<h1>{site.heading}</h1>
+					<nav class="hero-actions" aria-label="Jump to section">
+						{
+							sections.map((section, index) => (
+								<a class="button button-secondary" href={`#${section.id}`}>
+									{index + 1}. {section.title}
+								</a>
+							))
+						}
+					</nav>
+			</header>
+
+			<main id="all-sections">
+				{
+					sections.map((section) => (
+						<section class="section" id={section.id}>
+							<div class="section-heading">
+								<div>
+									<p class="eyebrow">{section.eyebrow}</p>
+									<h2>{section.title}</h2>
+								</div>
+								{section.description && <p>{section.description}</p>}
+							</div>
+
+							{section.tips.length > 0 && (
+								<div class="tips-block">
+									<h3>Pro tips</h3>
+									<ul class="tips-list">
+										{section.tips.map((tip) => (
+											<li>
+												<strong>{tip.title}:</strong> {tip.text}
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
+
+							{section.showStrategyDiagram && section.calloutCards && section.calloutCards.length > 0 ? (
+								<div class="strategy-callout-layout">
+									<div class="strategy-diagram strategy-diagram-compact">
+										<img
+											src="/applying-strategy-venn.svg"
+											alt="A Venn diagram showing Cold Outreach, Referrals, and Applying Online with Sweet Spot at the center overlap."
+										/>
+										{section.strategyDescription && <p>{section.strategyDescription}</p>}
+									</div>
+
+									<div class="callout-grid strategy-callout-grid">
+										{section.calloutCards.map((card) => (
+											<article class="callout-card">
+												<div class="card-topline">
+													{card.tag ? <span class="pill">{card.tag}</span> : <span></span>}
+												</div>
+												<h3>{card.title}</h3>
+												<p>{card.description}</p>
+												{card.bullets && card.bullets.length > 0 && (
+													<ul class="tips-list">
+														{card.bullets.map((bullet) => (
+															<li>{bullet}</li>
+														))}
+													</ul>
+												)}
+												{card.prompt && (
+													<div class="callout-prompt">
+														<div class="card-topline">
+															<h4>AI prompt</h4>
+															<button class="copy-button" type="button" data-copy-text={card.prompt}>
+																Copy
+															</button>
+														</div>
+														<pre>{card.prompt}</pre>
+													</div>
+												)}
+											</article>
+										))}
+									</div>
+								</div>
+							) : (
+								<>
+									{section.showStrategyDiagram && (
+										<div class="strategy-diagram">
+											<img
+												src="/applying-strategy-venn.svg"
+												alt="A Venn diagram showing Cold Outreach, Referrals, and Applying Online with Sweet Spot at the center overlap."
+											/>
+											{section.strategyDescription && <p>{section.strategyDescription}</p>}
+										</div>
+									)}
+
+									{section.calloutCards && section.calloutCards.length > 0 && (
+										<div class="callout-grid">
+											{section.calloutCards.map((card) => (
+												<article class="callout-card">
+													<div class="card-topline">
+														{card.tag ? <span class="pill">{card.tag}</span> : <span></span>}
+													</div>
+													<h3>{card.title}</h3>
+													<p>{card.description}</p>
+													{card.bullets && card.bullets.length > 0 && (
+														<ul class="tips-list">
+															{card.bullets.map((bullet) => (
+																<li>{bullet}</li>
+															))}
+														</ul>
+													)}
+													{card.prompt && (
+														<div class="callout-prompt">
+															<div class="card-topline">
+																<h4>AI prompt</h4>
+																<button class="copy-button" type="button" data-copy-text={card.prompt}>
+																	Copy
+																</button>
+															</div>
+															<pre>{card.prompt}</pre>
+														</div>
+													)}
+												</article>
+											))}
+										</div>
+									)}
+								</>
+							)}
+
+							{section.promptGroups.length > 0 ? (
+								<div class="section-groups">
+									{section.promptGroups.map((group) => (
+										<div class={`prompt-group-block ${group.theme === "cover-letter" ? "prompt-group-cover-letter" : ""}`}>
+											<div class="group-header">
+												<h3>{group.title}</h3>
+												{group.description && <p>{group.description}</p>}
+											</div>
+
+											<div class="prompt-grid">
+												{group.prompts.map((prompt) => (
+													<article class="prompt-card">
+														<div class="card-topline">
+															<span class="pill">{prompt.tag}</span>
+															<button
+																class="copy-button"
+																type="button"
+																data-copy-text={prompt.text}
+															>
+																Copy
+															</button>
+														</div>
+														<h3>{prompt.title}</h3>
+														<pre>{prompt.text}</pre>
+
+														{prompt.followUps && prompt.followUps.length > 0 && (
+															<div class="follow-up-block">
+																<h4>Follow-up prompts</h4>
+																<div class="follow-up-list">
+																	{prompt.followUps.map((followUp) => (
+																		<div class="follow-up-card">
+																			<pre>{followUp}</pre>
+																			<button
+																				class="copy-button copy-button-small"
+																				type="button"
+																				data-copy-text={followUp}
+																			>
+																				Copy
+																			</button>
+																		</div>
+																	))}
+																</div>
+															</div>
+														)}
+													</article>
+												))}
+											</div>
+										</div>
+									))}
+								</div>
+							) : (
+								<div class="coming-soon">
+									<p>Content coming soon.</p>
+								</div>
+							)}
+
+							{section.toolCards && section.toolCards.length > 0 && (
+								<div class="tool-grid">
+									{section.toolCards.map((tool) => (
+										<a
+											class="tool-card tool-card-link"
+											href={tool.href}
+											target="_blank"
+											rel="noreferrer"
+											style={
+												tool.image
+													? `background-image: linear-gradient(180deg, rgba(18, 20, 19, 0.12), rgba(18, 20, 19, 0.7)), url('${tool.image}')`
+													: undefined
+											}
+										>
+											<div class="tool-card-body">
+												<h3>{tool.title}</h3>
+												{tool.description && <p>{tool.description}</p>}
+											</div>
+										</a>
+									))}
+								</div>
+							)}
+						</section>
+					))
+				}
+			</main>
+		</div>
+
+		<script is:inline>
+			const buttons = document.querySelectorAll("[data-copy-text]");
+
+			for (const button of buttons) {
+				button.addEventListener("click", async () => {
+					const copyText = button.getAttribute("data-copy-text");
+					if (!copyText) return;
+
+					try {
+						await navigator.clipboard.writeText(copyText);
+						const originalLabel = button.textContent;
+						button.textContent = "Copied";
+						window.setTimeout(() => {
+							button.textContent = originalLabel;
+						}, 1200);
+					} catch {
+						button.textContent = "Failed";
+					}
+				});
+			}
+		</script>
 	</body>
 </html>

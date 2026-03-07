@@ -1,43 +1,33 @@
-# Astro Starter Kit: Minimal
+# AI Job Enhance Resources
 
-```sh
-pnpm create astro@latest -- --template minimal
+Static Astro site for hosting prompts and resources from a talk on using AI to improve a job search.
+
+## Run locally
+
+```bash
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Build
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+pnpm build
+pnpm preview
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Deploy to Vercel
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Push this repo to GitHub.
+2. Import the repo into Vercel.
+3. Vercel should detect Astro automatically.
+4. Use the default build settings:
+   - Install command: `pnpm install`
+   - Build command: `pnpm build`
+   - Output directory: `dist`
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Content to update next
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `src/data/site.ts` for the page title, prompt content, and resource links
+- `src/pages/index.astro` if you want to change layout or add sections
+- `src/styles/global.css` for the visual design

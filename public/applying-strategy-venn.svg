@@ -1,0 +1,34 @@
+<svg width="1600" height="1400" viewBox="0 0 1600 1400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Job search strategy Venn diagram</title>
+  <desc id="desc">A three-circle Venn diagram with Cold Outreach at the top, Referrals at the bottom left, Applying Online at the bottom right, and Sweet Spot in the center overlap.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="1400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0798D0"/>
+      <stop offset="0.56" stop-color="#4FBE88"/>
+      <stop offset="1" stop-color="#7ED94C"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1400" rx="32" fill="url(#bg)"/>
+
+  <circle cx="800" cy="420" r="440" stroke="#F4F0E8" stroke-width="4"/>
+  <circle cx="440" cy="950" r="440" stroke="#F4F0E8" stroke-width="4"/>
+  <circle cx="1160" cy="950" r="440" stroke="#F4F0E8" stroke-width="4"/>
+
+  <g fill="#2E28A4" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <text x="800" y="345" font-size="84" font-weight="700">COLD OUTREACH</text>
+    <text x="800" y="425" font-size="66" font-weight="400">High Effort</text>
+    <text x="800" y="505" font-size="66" font-weight="400">Medium Impact</text>
+
+    <text x="430" y="915" font-size="84" font-weight="700">REFERRALS</text>
+    <text x="430" y="995" font-size="66" font-weight="400">High Effort</text>
+    <text x="430" y="1075" font-size="66" font-weight="400">High Impact</text>
+
+    <text x="1165" y="965" font-size="84" font-weight="700">APPLYING ONLINE</text>
+    <text x="1165" y="1045" font-size="66" font-weight="400">Low Effort</text>
+    <text x="1165" y="1125" font-size="66" font-weight="400">Low Impact</text>
+  </g>
+
+  <rect x="554" y="655" width="492" height="108" rx="54" fill="#8EA2E6"/>
+  <text x="800" y="720" fill="#111111" font-family="Courier New, Courier, monospace" font-size="62" font-weight="400" text-anchor="middle">SWEET SPOT</text>
+</svg>
