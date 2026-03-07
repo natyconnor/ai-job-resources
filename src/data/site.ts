@@ -290,7 +290,7 @@ export const sections: Section[] = [
 				href: "https://wisprflow.ai/",
 			},
 			{
-				title: "Coursera",
+				title: "Accelerate Your Job Search with AI Specialization",
 				description: "Google course on job searching with AI.",
 				highlights: [
 					"Good for building a repeatable process",

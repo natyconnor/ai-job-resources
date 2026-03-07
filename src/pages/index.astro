@@ -1,9 +1,40 @@
 ---
 import { sections, site } from "../data/site";
 import "../styles/global.css";
+
+const panelClass =
+	"rounded-[2rem] border border-stone-200/70 bg-white/75 shadow-[0_28px_90px_rgba(49,35,18,0.12)] backdrop-blur-xl";
+const sectionClass = `${panelClass} px-5 py-6 sm:px-8 sm:py-8 lg:px-10 lg:py-10`;
+const eyebrowClass =
+	"inline-flex items-center rounded-full border border-emerald-900/10 bg-emerald-50 px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-emerald-800";
+const navPillClass =
+	"inline-flex items-center gap-2 rounded-full border border-stone-300/80 bg-white/80 px-4 py-2 text-sm font-semibold text-stone-700 no-underline transition duration-200 hover:-translate-y-0.5 hover:border-stone-500 hover:bg-white";
+const cardClass =
+	"rounded-[1.5rem] border border-stone-200/80 bg-white/80 p-5 shadow-[0_18px_46px_rgba(49,35,18,0.1)]";
+const copyButtonClass =
+	"inline-flex items-center justify-center rounded-full border border-stone-300/80 bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-stone-600 transition duration-200 hover:border-stone-900 hover:bg-stone-950 hover:text-white";
+const preClass = "m-0 whitespace-pre-wrap rounded-2xl p-4 text-[0.95rem] leading-7 text-stone-700";
+const listClass = "space-y-3 pl-5 text-sm leading-7 text-stone-600 marker:text-emerald-700";
+
+const promptGroupThemes = {
+	default: {
+		block:
+			"border border-emerald-900/10 bg-[linear-gradient(180deg,rgba(240,253,250,0.96),rgba(255,255,255,0.92))]",
+		pill: "border border-emerald-200 bg-emerald-50 text-emerald-800",
+		surface: "bg-emerald-950/[0.04]",
+		followUp: "border border-emerald-900/10 bg-white/92",
+	},
+	"cover-letter": {
+		block:
+			"border border-orange-900/10 bg-[linear-gradient(180deg,rgba(255,247,237,0.96),rgba(255,255,255,0.92))]",
+		pill: "border border-orange-200 bg-orange-50 text-orange-800",
+		surface: "bg-orange-950/[0.04]",
+		followUp: "border border-orange-900/10 bg-white/92",
+	},
+};
 ---
 
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -13,215 +44,323 @@ import "../styles/global.css";
 		<meta name="description" content={site.description} />
 		<title>{site.title}</title>
 	</head>
-	<body>
-		<div class="page-shell">
-			<header class="hero">
-				<p class="eyebrow">{site.eyebrow}</p>
-				<h1>{site.heading}</h1>
-					<nav class="hero-actions" aria-label="Jump to section">
-						{
-							sections.map((section, index) => (
-								<a class="button button-secondary" href={`#${section.id}`}>
-									{index + 1}. {section.title}
-								</a>
-							))
-						}
-					</nav>
-			</header>
+	<body class="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(13,148,136,0.16),transparent_28%),radial-gradient(circle_at_top_right,rgba(251,146,60,0.16),transparent_24%),linear-gradient(180deg,#fffaf0_0%,#f4ecde_44%,#eadfce_100%)] font-sans text-stone-950 antialiased selection:bg-emerald-500/20">
+		<div class="relative isolate overflow-hidden">
+			<div class="pointer-events-none absolute inset-x-0 top-[-14rem] h-[30rem] bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.18),transparent_60%)]"></div>
+			<div class="pointer-events-none absolute right-[-8rem] top-72 h-80 w-80 rounded-full bg-orange-300/20 blur-3xl"></div>
+			<div class="pointer-events-none absolute left-[-10rem] top-[44rem] h-96 w-96 rounded-full bg-emerald-300/20 blur-3xl"></div>
 
-			<main id="all-sections">
-				{
-					sections.map((section) => (
-						<section class="section" id={section.id}>
-							<div class="section-heading">
-								<div>
-									<p class="eyebrow">{section.eyebrow}</p>
-									<h2>{section.title}</h2>
-								</div>
-								{section.description && <p>{section.description}</p>}
-							</div>
-
-							{section.tips.length > 0 && (
-								<div class="tips-block">
-									<h3>Pro tips</h3>
-									<ul class="tips-list">
-										{section.tips.map((tip) => (
-											<li>
-												<strong>{tip.title}:</strong> {tip.text}
-											</li>
-										))}
-									</ul>
-								</div>
-							)}
-
-							{section.showStrategyDiagram && section.calloutCards && section.calloutCards.length > 0 ? (
-								<div class="strategy-callout-layout">
-									<div class="strategy-diagram strategy-diagram-compact">
-										<img
-											src="/applying-strategy-venn.svg"
-											alt="A Venn diagram showing Cold Outreach, Referrals, and Applying Online with Sweet Spot at the center overlap."
-										/>
-										{section.strategyDescription && <p>{section.strategyDescription}</p>}
-									</div>
-
-									<div class="callout-grid strategy-callout-grid">
-										{section.calloutCards.map((card) => (
-											<article class="callout-card">
-												<div class="card-topline">
-													{card.tag ? <span class="pill">{card.tag}</span> : <span></span>}
-												</div>
-												<h3>{card.title}</h3>
-												<p>{card.description}</p>
-												{card.bullets && card.bullets.length > 0 && (
-													<ul class="tips-list">
-														{card.bullets.map((bullet) => (
-															<li>{bullet}</li>
-														))}
-													</ul>
-												)}
-												{card.prompt && (
-													<div class="callout-prompt">
-														<div class="card-topline">
-															<h4>AI prompt</h4>
-															<button class="copy-button" type="button" data-copy-text={card.prompt}>
-																Copy
-															</button>
-														</div>
-														<pre>{card.prompt}</pre>
-													</div>
-												)}
-											</article>
-										))}
-									</div>
-								</div>
-							) : (
+			<div class="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 pb-16 pt-6 sm:px-6 lg:px-8">
+				<header class={`${panelClass} relative overflow-hidden px-6 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-12`}>
+					<div class="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.55),transparent_30%,rgba(17,24,39,0.05)_100%)]"></div>
+					<div class="relative">
+						<div>
+							<p class={eyebrowClass}>{site.eyebrow}</p>
+							<h1 class="mt-5 max-w-[11ch] font-display text-5xl leading-none tracking-[-0.045em] sm:text-6xl lg:max-w-none lg:text-[5.8rem]">
 								<>
-									{section.showStrategyDiagram && (
-										<div class="strategy-diagram">
+									<span class="lg:hidden">{site.heading}</span>
+									<span class="hidden lg:block">
+										Using AI to Enhance
+										<br />
+										Your Job Search
+									</span>
+								</>
+							</h1>
+							<nav class="mt-8 flex flex-wrap gap-3" aria-label="Jump to section">
+								{
+									sections.map((section, index) => (
+										<a class={navPillClass} href={`#${section.id}`}>
+											<span class="text-stone-400">0{index + 1}</span>
+											<span>{section.title}</span>
+										</a>
+									))
+								}
+							</nav>
+						</div>
+					</div>
+				</header>
+
+				<main id="all-sections" class="space-y-6">
+					{
+						sections.map((section, index) => (
+							<section class={sectionClass} id={section.id}>
+								<div class="mb-8 grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(16rem,0.9fr)] lg:items-end">
+									<div>
+										<div class="mb-4 flex flex-wrap items-center gap-3">
+											<p class={eyebrowClass}>{section.eyebrow}</p>
+										</div>
+										<h2 class="max-w-[14ch] font-display text-4xl leading-none tracking-[-0.04em] sm:text-5xl">
+											{section.title}
+										</h2>
+									</div>
+									{section.description && (
+										<p class="max-w-xl text-base leading-8 text-stone-600">{section.description}</p>
+									)}
+								</div>
+
+								{section.tips.length > 0 && (
+									<div class="mb-6 rounded-[1.6rem] border border-emerald-900/10 bg-emerald-950/[0.04] p-5 sm:p-6">
+										<h3 class="font-display text-2xl leading-none tracking-[-0.03em]">Pro tips</h3>
+										<ul class={`mt-4 ${listClass}`}>
+											{section.tips.map((tip) => (
+												<li>
+													<strong class="font-semibold text-stone-900">{tip.title}:</strong> {tip.text}
+												</li>
+											))}
+										</ul>
+									</div>
+								)}
+
+								{section.showStrategyDiagram && section.calloutCards && section.calloutCards.length > 0 ? (
+									<div class="mb-6 grid gap-4 lg:grid-cols-[minmax(260px,420px)_minmax(0,1fr)] lg:items-start">
+										<div class="overflow-hidden rounded-[1.8rem] border border-emerald-900/10 bg-white/80">
 											<img
+												class="block w-full"
 												src="/applying-strategy-venn.svg"
 												alt="A Venn diagram showing Cold Outreach, Referrals, and Applying Online with Sweet Spot at the center overlap."
 											/>
-											{section.strategyDescription && <p>{section.strategyDescription}</p>}
+											{section.strategyDescription && (
+												<p class="border-t border-stone-200/80 px-5 py-4 text-sm leading-7 text-stone-600">
+													{section.strategyDescription}
+												</p>
+											)}
 										</div>
-									)}
 
-									{section.calloutCards && section.calloutCards.length > 0 && (
-										<div class="callout-grid">
+										<div class="grid gap-4">
 											{section.calloutCards.map((card) => (
-												<article class="callout-card">
-													<div class="card-topline">
-														{card.tag ? <span class="pill">{card.tag}</span> : <span></span>}
+												<article class={`${cardClass} ${card.title === "STAR method" ? "lg:grid lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.9fr)] lg:gap-6" : ""}`}>
+													<div>
+														<div class="mb-4 flex items-center justify-between gap-3">
+															{card.tag ? (
+																<span class="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-orange-800">
+																	{card.tag}
+																</span>
+															) : (
+																<span></span>
+															)}
+														</div>
+														<h3 class="font-display text-3xl leading-none tracking-[-0.035em]">{card.title}</h3>
+														<p class="mt-4 text-sm leading-7 text-stone-600">{card.description}</p>
+														{card.bullets && card.bullets.length > 0 && (
+															<ul class={`mt-4 ${listClass}`}>
+																{card.bullets.map((bullet) => {
+																	const [label, ...rest] = bullet.split(":");
+																	const hasLabel = rest.length > 0;
+
+																	return (
+																		<li>
+																			{hasLabel ? (
+																				<>
+																					<strong class="font-semibold text-stone-900">{label}:</strong>{" "}
+																					{rest.join(":").trim()}
+																				</>
+																			) : (
+																				bullet
+																			)}
+																		</li>
+																	);
+																})}
+															</ul>
+														)}
 													</div>
-													<h3>{card.title}</h3>
-													<p>{card.description}</p>
-													{card.bullets && card.bullets.length > 0 && (
-														<ul class="tips-list">
-															{card.bullets.map((bullet) => (
-																<li>{bullet}</li>
-															))}
-														</ul>
-													)}
 													{card.prompt && (
-														<div class="callout-prompt">
-															<div class="card-topline">
-																<h4>AI prompt</h4>
-																<button class="copy-button" type="button" data-copy-text={card.prompt}>
+														<div class={`${card.title === "STAR method" ? "mt-6 lg:mt-0" : "mt-5"} rounded-[1.3rem] bg-emerald-950/[0.04] p-4`}>
+															<div class="mb-3 flex items-center justify-between gap-3">
+																<h4 class="font-display text-lg leading-none tracking-[-0.02em]">AI prompt</h4>
+																<button class={copyButtonClass} type="button" data-copy-text={card.prompt}>
 																	Copy
 																</button>
 															</div>
-															<pre>{card.prompt}</pre>
+															<pre class={`${preClass} bg-white/70`}>{card.prompt}</pre>
 														</div>
 													)}
 												</article>
 											))}
 										</div>
-									)}
-								</>
-							)}
-
-							{section.promptGroups.length > 0 ? (
-								<div class="section-groups">
-									{section.promptGroups.map((group) => (
-										<div class={`prompt-group-block ${group.theme === "cover-letter" ? "prompt-group-cover-letter" : ""}`}>
-											<div class="group-header">
-												<h3>{group.title}</h3>
-												{group.description && <p>{group.description}</p>}
+									</div>
+								) : (
+									<>
+										{section.showStrategyDiagram && (
+											<div class="mb-6 overflow-hidden rounded-[1.8rem] border border-emerald-900/10 bg-white/80">
+												<img
+													class="block w-full"
+													src="/applying-strategy-venn.svg"
+													alt="A Venn diagram showing Cold Outreach, Referrals, and Applying Online with Sweet Spot at the center overlap."
+												/>
+												{section.strategyDescription && (
+													<p class="border-t border-stone-200/80 px-5 py-4 text-sm leading-7 text-stone-600">
+														{section.strategyDescription}
+													</p>
+												)}
 											</div>
+										)}
 
-											<div class="prompt-grid">
-												{group.prompts.map((prompt) => (
-													<article class="prompt-card">
-														<div class="card-topline">
-															<span class="pill">{prompt.tag}</span>
-															<button
-																class="copy-button"
-																type="button"
-																data-copy-text={prompt.text}
-															>
-																Copy
-															</button>
-														</div>
-														<h3>{prompt.title}</h3>
-														<pre>{prompt.text}</pre>
-
-														{prompt.followUps && prompt.followUps.length > 0 && (
-															<div class="follow-up-block">
-																<h4>Follow-up prompts</h4>
-																<div class="follow-up-list">
-																	{prompt.followUps.map((followUp) => (
-																		<div class="follow-up-card">
-																			<pre>{followUp}</pre>
-																			<button
-																				class="copy-button copy-button-small"
-																				type="button"
-																				data-copy-text={followUp}
-																			>
-																				Copy
-																			</button>
-																		</div>
-																	))}
+										{section.calloutCards && section.calloutCards.length > 0 && (
+												<div class="mb-6 grid gap-4 md:grid-cols-2">
+													{section.calloutCards.map((card) => (
+														<article class={`${cardClass} ${card.title === "STAR method" ? "md:col-span-2 lg:grid lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.9fr)] lg:gap-6" : ""}`}>
+															<div>
+																<div class="mb-4 flex items-center justify-between gap-3">
+																	{card.tag ? (
+																		<span class="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-orange-800">
+																			{card.tag}
+																		</span>
+																	) : (
+																		<span></span>
+																	)}
 																</div>
-															</div>
-														)}
-													</article>
-												))}
-											</div>
-										</div>
-									))}
-								</div>
-							) : (
-								<div class="coming-soon">
-									<p>Content coming soon.</p>
-								</div>
-							)}
+																<h3 class="font-display text-3xl leading-none tracking-[-0.035em]">{card.title}</h3>
+																<p class="mt-4 text-sm leading-7 text-stone-600">{card.description}</p>
+																{card.bullets && card.bullets.length > 0 && (
+																	<ul class={`mt-4 ${listClass}`}>
+																		{card.bullets.map((bullet) => {
+																			const [label, ...rest] = bullet.split(":");
+																			const hasLabel = rest.length > 0;
 
-							{section.toolCards && section.toolCards.length > 0 && (
-								<div class="tool-grid">
-									{section.toolCards.map((tool) => (
-										<a
-											class="tool-card tool-card-link"
-											href={tool.href}
-											target="_blank"
-											rel="noreferrer"
-											style={
-												tool.image
-													? `background-image: linear-gradient(180deg, rgba(18, 20, 19, 0.12), rgba(18, 20, 19, 0.7)), url('${tool.image}')`
-													: undefined
-											}
-										>
-											<div class="tool-card-body">
-												<h3>{tool.title}</h3>
-												{tool.description && <p>{tool.description}</p>}
-											</div>
-										</a>
-									))}
-								</div>
-							)}
-						</section>
-					))
-				}
-			</main>
+																			return (
+																				<li>
+																					{hasLabel ? (
+																						<>
+																							<strong class="font-semibold text-stone-900">{label}:</strong>{" "}
+																							{rest.join(":").trim()}
+																						</>
+																					) : (
+																						bullet
+																					)}
+																				</li>
+																			);
+																		})}
+																	</ul>
+																)}
+															</div>
+															{card.prompt && (
+																<div class={`${card.title === "STAR method" ? "mt-6 lg:mt-0" : "mt-5"} rounded-[1.3rem] bg-emerald-950/[0.04] p-4`}>
+																	<div class="mb-3 flex items-center justify-between gap-3">
+																		<h4 class="font-display text-lg leading-none tracking-[-0.02em]">AI prompt</h4>
+																		<button class={copyButtonClass} type="button" data-copy-text={card.prompt}>
+																			Copy
+																		</button>
+																	</div>
+																	<pre class={`${preClass} bg-white/70`}>{card.prompt}</pre>
+																</div>
+															)}
+														</article>
+													))}
+												</div>
+										)}
+									</>
+								)}
+
+								{section.promptGroups.length > 0 ? (
+									<div class="space-y-5">
+										{section.promptGroups.map((group) => {
+											const theme =
+												promptGroupThemes[group.theme === "cover-letter" ? "cover-letter" : "default"];
+											const promptGridClass =
+												group.prompts.length === 3 ? "grid gap-4 xl:grid-cols-3" : "grid gap-4 xl:grid-cols-2";
+
+											return (
+												<div class={`rounded-[1.75rem] p-4 sm:p-5 ${theme.block}`}>
+													<div class="mb-5 flex flex-col gap-4 border-b border-stone-200/80 pb-5 sm:flex-row sm:items-end sm:justify-between">
+														<div>
+															<h3 class="font-display text-3xl leading-none tracking-[-0.035em]">{group.title}</h3>
+															{group.description && (
+																<p class="mt-3 max-w-3xl text-sm leading-7 text-stone-600">
+																	{group.description}
+																</p>
+															)}
+														</div>
+														<span class={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] ${theme.pill}`}>
+															{group.theme === "cover-letter" ? "Cover letter set" : "Prompt set"}
+														</span>
+													</div>
+
+													<div class={promptGridClass}>
+														{group.prompts.map((prompt) => (
+															<article class={`${cardClass} flex h-full flex-col`}>
+																<div class="mb-4 flex items-start justify-between gap-3">
+																	<span class={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] ${theme.pill}`}>
+																		{prompt.tag}
+																	</span>
+																	<button
+																		class={copyButtonClass}
+																		type="button"
+																		data-copy-text={prompt.text}
+																	>
+																		Copy
+																	</button>
+																</div>
+																<h3 class="font-display text-[1.9rem] leading-none tracking-[-0.035em]">
+																	{prompt.title}
+																</h3>
+																<pre class={`${preClass} mt-4 flex-1 ${theme.surface}`}>{prompt.text}</pre>
+
+																{prompt.followUps && prompt.followUps.length > 0 && (
+																	<div class="mt-4 border-t border-stone-200/80 pt-4">
+																		<h4 class="text-sm font-semibold uppercase tracking-[0.16em] text-stone-500">
+																			Follow-up prompts
+																		</h4>
+																		<div class="mt-3 grid gap-3">
+																			{prompt.followUps.map((followUp) => (
+																				<div class={`grid gap-3 rounded-[1.1rem] p-3 ${theme.followUp}`}>
+																					<pre class={`${preClass} p-0`}>{followUp}</pre>
+																					<button
+																						class={`${copyButtonClass} w-fit px-2.5 py-1 text-[0.65rem]`}
+																						type="button"
+																						data-copy-text={followUp}
+																					>
+																						Copy
+																					</button>
+																				</div>
+																			))}
+																		</div>
+																	</div>
+																)}
+															</article>
+														))}
+													</div>
+												</div>
+											);
+										})}
+									</div>
+								) : (
+									<div class="rounded-[1.5rem] border border-dashed border-stone-300/90 bg-white/60 px-5 py-6 text-sm leading-7 text-stone-600">
+										Content coming soon.
+									</div>
+								)}
+
+								{section.toolCards && section.toolCards.length > 0 && (
+									<div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+										{section.toolCards.map((tool) => (
+											<a
+												class="group relative flex min-h-[220px] overflow-hidden rounded-[1.7rem] border border-stone-200/70 bg-stone-950 p-5 text-white no-underline shadow-[0_18px_46px_rgba(49,35,18,0.1)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(17,24,39,0.22)]"
+												href={tool.href}
+												target="_blank"
+												rel="noreferrer"
+												style={
+													tool.image
+														? `background-image: linear-gradient(180deg, rgba(18, 20, 19, 0.12), rgba(18, 20, 19, 0.82)), url('${tool.image}'); background-position: center; background-repeat: no-repeat; background-size: cover;`
+														: undefined
+												}
+											>
+												<div class={`absolute inset-0 ${tool.image ? "bg-[linear-gradient(120deg,rgba(255,255,255,0.12),transparent_30%,rgba(15,23,42,0.2))]" : "bg-[linear-gradient(160deg,#17352f,#111827)]"}`}></div>
+												<div class="relative mt-auto grid gap-3">
+													<h3 class="font-display text-3xl leading-none tracking-[-0.035em] text-[#fffaf0]">
+														{tool.title}
+													</h3>
+													{tool.description && (
+														<p class="max-w-[24ch] text-sm leading-6 text-stone-100/85">{tool.description}</p>
+													)}
+												</div>
+											</a>
+										))}
+									</div>
+								)}
+							</section>
+						))
+					}
+				</main>
+			</div>
 		</div>
 
 		<script is:inline>
