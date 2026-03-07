@@ -52,6 +52,10 @@ export const site = {
 	heading: "Using AI to Enhance Your Job Search",
 	description:
 		"A companion page for practical prompting tips, reusable examples, and resources from the talk.",
+	links: {
+		mainSite: "https://www.nathanconnor.dev/",
+		github: "https://github.com/natyconnor/ai-job-resources",
+	},
 };
 
 export const sections: Section[] = [
