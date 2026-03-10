@@ -12,8 +12,8 @@ const navPillClass =
 const cardClass =
 	"rounded-[1.5rem] border border-stone-200/80 bg-white/80 p-5 shadow-[0_18px_46px_rgba(49,35,18,0.1)]";
 const copyButtonClass =
-	"inline-flex items-center justify-center rounded-full border border-stone-300/80 bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-stone-600 transition duration-200 hover:border-stone-900 hover:bg-stone-950 hover:text-white";
-const preClass = "m-0 whitespace-pre-wrap rounded-2xl p-4 text-[0.95rem] leading-7 text-stone-700";
+	"inline-flex min-h-[40px] min-w-[44px] cursor-pointer items-center justify-center gap-2 rounded-full border border-stone-300/80 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-stone-600 transition duration-200 hover:border-stone-900 hover:bg-stone-950 hover:text-white sm:min-h-[44px]";
+const preClass = "m-0 whitespace-pre-wrap break-words rounded-2xl p-4 text-[0.95rem] leading-7 text-stone-700";
 const listClass = "space-y-3 pl-5 text-sm leading-7 text-stone-600 marker:text-emerald-700";
 
 const promptGroupThemes = {
@@ -56,7 +56,7 @@ const promptGroupThemes = {
 					<div class="relative">
 						<div>
 							<p class={eyebrowClass}>{site.eyebrow}</p>
-							<h1 class="mt-5 max-w-[11ch] font-display text-5xl leading-none tracking-[-0.045em] sm:text-6xl lg:max-w-none lg:text-[5.8rem]">
+						<h1 class="mt-5 max-w-[11ch] font-display text-4xl leading-none tracking-[-0.045em] sm:text-5xl lg:max-w-none lg:text-[5.5rem]">
 								<>
 									<span class="lg:hidden">{site.heading}</span>
 									<span class="hidden lg:block">
@@ -168,7 +168,13 @@ const promptGroupThemes = {
 															<div class="mb-3 flex items-center justify-between gap-3">
 																<h4 class="font-display text-lg leading-none tracking-[-0.02em]">AI prompt</h4>
 																<button class={copyButtonClass} type="button" data-copy-text={card.prompt}>
-																	Copy
+																	<span aria-hidden="true" class="inline-flex shrink-0">
+																		<svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+																			<path d="M6.5 2.5A1.5 1.5 0 0 0 5 4v9a1.5 1.5 0 0 0 1.5 1.5h6A1.5 1.5 0 0 0 14 13V4a1.5 1.5 0 0 0-1.5-1.5h-6Z" />
+																			<path d="M4 6.5H3.5A1.5 1.5 0 0 0 2 8v8A1.5 1.5 0 0 0 3.5 17.5h6A1.5 1.5 0 0 0 11 16v-.5H6.5A2.5 2.5 0 0 1 4 13V6.5Z" />
+																		</svg>
+																	</span>
+																	<span data-copy-label>Copy</span>
 																</button>
 															</div>
 															<pre class={`${preClass} bg-white/70`}>{card.prompt}</pre>
@@ -238,7 +244,13 @@ const promptGroupThemes = {
 																	<div class="mb-3 flex items-center justify-between gap-3">
 																		<h4 class="font-display text-lg leading-none tracking-[-0.02em]">AI prompt</h4>
 																		<button class={copyButtonClass} type="button" data-copy-text={card.prompt}>
-																			Copy
+																			<span aria-hidden="true" class="inline-flex shrink-0">
+																				<svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+																					<path d="M6.5 2.5A1.5 1.5 0 0 0 5 4v9a1.5 1.5 0 0 0 1.5 1.5h6A1.5 1.5 0 0 0 14 13V4a1.5 1.5 0 0 0-1.5-1.5h-6Z" />
+																					<path d="M4 6.5H3.5A1.5 1.5 0 0 0 2 8v8A1.5 1.5 0 0 0 3.5 17.5h6A1.5 1.5 0 0 0 11 16v-.5H6.5A2.5 2.5 0 0 1 4 13V6.5Z" />
+																				</svg>
+																			</span>
+																			<span data-copy-label>Copy</span>
 																		</button>
 																	</div>
 																	<pre class={`${preClass} bg-white/70`}>{card.prompt}</pre>
@@ -287,7 +299,13 @@ const promptGroupThemes = {
 																		type="button"
 																		data-copy-text={prompt.text}
 																	>
-																		Copy
+																		<span aria-hidden="true" class="inline-flex shrink-0">
+																			<svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+																				<path d="M6.5 2.5A1.5 1.5 0 0 0 5 4v9a1.5 1.5 0 0 0 1.5 1.5h6A1.5 1.5 0 0 0 14 13V4a1.5 1.5 0 0 0-1.5-1.5h-6Z" />
+																				<path d="M4 6.5H3.5A1.5 1.5 0 0 0 2 8v8A1.5 1.5 0 0 0 3.5 17.5h6A1.5 1.5 0 0 0 11 16v-.5H6.5A2.5 2.5 0 0 1 4 13V6.5Z" />
+																			</svg>
+																		</span>
+																		<span data-copy-label>Copy</span>
 																	</button>
 																</div>
 																<h3 class="font-display text-[1.9rem] leading-none tracking-[-0.035em]">
@@ -305,11 +323,17 @@ const promptGroupThemes = {
 																				<div class={`grid gap-3 rounded-[1.1rem] p-3 ${theme.followUp}`}>
 																					<pre class={`${preClass} p-0`}>{followUp}</pre>
 																					<button
-																						class={`${copyButtonClass} w-fit px-2.5 py-1 text-[0.65rem]`}
+																						class={`${copyButtonClass} w-fit px-3 py-2 text-[0.7rem]`}
 																						type="button"
 																						data-copy-text={followUp}
 																					>
-																						Copy
+																						<span aria-hidden="true" class="inline-flex shrink-0">
+																							<svg class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+																								<path d="M6.5 2.5A1.5 1.5 0 0 0 5 4v9a1.5 1.5 0 0 0 1.5 1.5h6A1.5 1.5 0 0 0 14 13V4a1.5 1.5 0 0 0-1.5-1.5h-6Z" />
+																								<path d="M4 6.5H3.5A1.5 1.5 0 0 0 2 8v8A1.5 1.5 0 0 0 3.5 17.5h6A1.5 1.5 0 0 0 11 16v-.5H6.5A2.5 2.5 0 0 1 4 13V6.5Z" />
+																							</svg>
+																						</span>
+																						<span data-copy-label>Copy</span>
 																					</button>
 																				</div>
 																			))}
@@ -393,15 +417,29 @@ const promptGroupThemes = {
 					const copyText = button.getAttribute("data-copy-text");
 					if (!copyText) return;
 
+					const label = button.querySelector("[data-copy-label]");
+					const originalLabel = label?.textContent ?? button.textContent ?? "Copy";
+
 					try {
 						await navigator.clipboard.writeText(copyText);
-						const originalLabel = button.textContent;
-						button.textContent = "Copied";
+						if (label) {
+							label.textContent = "Copied";
+						} else {
+							button.textContent = "Copied";
+						}
 						window.setTimeout(() => {
-							button.textContent = originalLabel;
+							if (label) {
+								label.textContent = originalLabel;
+							} else {
+								button.textContent = originalLabel;
+							}
 						}, 1200);
 					} catch {
-						button.textContent = "Failed";
+						if (label) {
+							label.textContent = "Failed";
+						} else {
+							button.textContent = "Failed";
+						}
 					}
 				});
 			}
